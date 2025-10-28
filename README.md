@@ -45,8 +45,8 @@ Fully responsive using CSS Flexbox and Grid
 
 Optimized for mobile, tablet, and desktop
 
-🛠️ Technologies Used
-Technology   	     Purpose
-HTML5	             Structure & Layout
-CSS3	             Responsive Styling
-JavaScript (ES6)	 Dynamic Functionality
+🛠️ Technologies Used:-
+
+HTML5	for           Structure & Layout,
+CSS3	for             Responsive Styling,
+JavaScript (ES6) for	 Dynamic Functionality
