@@ -1,1 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Mood Tracker</h1>
+            <p>Track your daily emotions and discover patterns</p>
+        </header>
 
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('log')">Log Mood</button>
+            <button class="nav-tab" onclick="showTab('history')">History</button>
+            <button class="nav-tab" onclick="showTab('reports')">Reports</button>
+        </nav>
+
+        <main class="main-content">
+            <!-- Log Mood Tab -->
+            <section id="log-tab" class="tab-content active">
+                <h2>How are you feeling today?</h2>
+                <form id="mood-form">
+                    <div class="form-group">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select your mood:</label>
+                        <div class="mood-selector">
+                            <div class="mood-card" data-mood="excellent" data-value="10">
+                                <span class="mood-icon">😍</span>
+                                <span class="mood-name">Excellent</span>
+                            </div>
+                            <div class="mood-card" data-mood="great" data-value="9">
+                                <span class="mood-icon">😊</span>
+                                <span class="mood-name">Great</span>
+                            </div>
+                            <div class="mood-card" data-mood="good" data-value="8">
+                                <span class="mood-icon">🙂</span>
+                                <span class="mood-name">Good</span>
+                            </div>
+                            <div class="mood-card" data-mood="okay" data-value="7">
+                                <span class="mood-icon">😐</span>
+                                <span class="mood-name">Okay</span>
+                            </div>
+                            <div class="mood-card" data-mood="meh" data-value="6">
+                                <span class="mood-icon">😑</span>
+                                <span class="mood-name">Meh</span>
+                            </div>
+                            <div class="mood-card" data-mood="not_great" data-value="5">
+                                <span class="mood-icon">😔</span>
+                                <span class="mood-name">Not Great</span>
+                            </div>
+                            <div class="mood-card" data-mood="bad" data-value="4">
+                                <span class="mood-icon">😞</span>
+                                <span class="mood-name">Bad</span>
+                            </div>
+                            <div class="mood-card" data-mood="terrible" data-value="3">
+                                <span class="mood-icon">😢</span>
+                                <span class="mood-name">Terrible</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sleep">Sleep Quality (1-10):</label>
+                        <div class="slider-group">
+                            <input type="range" id="sleep" name="sleep" min="1" max="10" value="5" class="slider">
+                            <span class="slider-value" id="sleep-value">5</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stress">Stress Level (1-10):</label>
+                        <div class="slider-group">
+                            <input type="range" id="stress" name="stress" min="1" max="10" value="5" class="slider">
+                            <span class="slider-value" id="stress-value">5</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="symptoms">Symptoms Severity (1-10):</label>
+                        <div class="slider-group">
+                            <input type="range" id="symptoms" name="symptoms" min="1" max="10" value="1" class="slider">
+                            <span class="slider-value" id="symptoms-value">1</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="engagement">Engagement Level (1-10):</label>
+                        <div class="slider-group">
+                            <input type="range" id="engagement" name="engagement" min="1" max="10" value="5" class="slider">
+                            <span class="slider-value" id="engagement-value">5</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="medications">Medications/Drugs (if any):</label>
+                        <input type="text" id="medications" name="medications" placeholder="List any medications taken today">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Notes:</label>
+                        <textarea id="notes" name="notes" rows="4" placeholder="What happened today? Any specific triggers or events?"></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Save Entry</button>
+                </form>
+            </section>
+
+            <!-- History Tab -->
+            <section id="history-tab" class="tab-content">
+                <h2>Mood History</h2>
+                <div class="history-controls">
+                    <button onclick="clearAllEntries()" class="danger-btn">Clear All</button>
+                </div>
+                <div id="entries-container" class="entries-container">
+                    <p class="no-entries">No entries yet. Start by logging your first mood!</p>
+                </div>
+            </section>
+
+            <!-- Reports Tab -->
+            <section id="reports-tab" class="tab-content">
+                <h2>Mood Analytics</h2>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3>Total Entries</h3>
+                        <span class="stat-value" id="total-count">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Mood</h3>
+                        <span class="stat-value" id="avg-mood">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Best Day</h3>
+                        <span class="stat-value" id="best-day">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Sleep Average</h3>
+                        <span class="stat-value" id="avg-sleep">-</span>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Mood Trend (Last 14 Days)</h3>
+                    <div id="mood-chart" class="chart">
+                        <p class="no-data">Add entries to see your mood trends</p>
+                    </div>
+                </div>
+
+                <div class="mood-breakdown">
+                    <h3>Mood Distribution</h3>
+                    <div id="mood-distribution" class="distribution-grid">
+                        <p class="no-data">Track moods to see distribution</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
